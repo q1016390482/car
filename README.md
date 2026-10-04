@@ -1,21 +1,37 @@
-# CarWith383Persist — Modern libxposed API 102
+# CarWith383Persist — API 102
 
-针对 Xiaomi HyperOS 3.307 / Android 16 的实验性 LSPosed 模块。
+这是一个实验性的 Modern LSPosed / libxposed API 102 模块。
 
-目标：
-- 不修改原版 CarWith 3.8.3 APK
-- 只在 `android` / system_server 作用域工作
-- 针对 `com.miui.carlink`
-- 尝试避免 `/product/app/CarWith` 中 4.0.1 的版本比较结果覆盖 3.8.3
+## 目的
+
+针对 `com.miui.carlink`：
+
+- 使用原始、未修改的 CarWith 3.8.3 APK
+- 不修改 APK 的 versionCode、versionName 或签名
+- 在 system_server 启动时 Hook Android PackageManager 的 `checkDowngrade`
+- 只对 `com.miui.carlink` 跳过 downgrade 检查
+- 目标是让已安装的 3.8.3 system update 在重启后的 PackageManager reconciliation 中继续保留
+
+## Modern API 102
+
+模块使用：
+
+- `io.github.libxposed:api:102.0.0`
+- `META-INF/xposed/java_init.list`
+- `META-INF/xposed/scope.list`
+- `META-INF/xposed/module.prop`
+- system_server scope: `system`
 
 ## GitHub Actions
-上传项目全部文件到 GitHub 后：
-Actions → Build CarWith383Persist API102 → Run workflow。
-编译结果在 Artifacts。
 
-## 重要
-这是实验性代码，尚未在用户的 Xiaomi 14 / HyperOS 3.307 真机上验证。
-如果目标类或方法不存在，会记录日志并跳过。
-如果出现 system_server 异常，应在 LSPosed 中禁用本模块后重启。
+进入：
 
-Modern API 入口使用 `META-INF/xposed/java_init.list`，scope 使用 `scope.list`，配置使用 `module.prop`。
+Actions → Build CarWith383Persist API102 → Run workflow
+
+成功后在 Artifacts 下载 `CarWith383Persist-API102`。
+
+## 重要说明
+
+这个模块针对 Android 16 / HyperOS 的实际行为做了定向 Hook，但 Xiaomi HyperOS 可能对 AOSP PackageManager 做额外修改，因此即使编译成功，也不能保证在所有 HyperOS 3 构建上都有效。
+
+如果模块加载但重启后仍恢复 4.0.1，应根据 LSPosed/system_server 日志进一步定位 HyperOS 的持久化检查点。
