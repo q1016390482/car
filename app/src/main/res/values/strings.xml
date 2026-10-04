@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">CarWith 3.8.3 Persist</string>
-    <string name="app_description">Keep original CarWith 3.8.3 as the active updated system app</string>
+    <string name="module_name">CarWith 3.8.3 Persistence Fix</string>
+    <string name="module_description">API 102 LSPosed module for keeping the original CarWith 3.8.3 system update across reboot.</string>
 </resources>
