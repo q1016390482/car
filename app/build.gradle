@@ -3,21 +3,19 @@ plugins { id 'com.android.application' }
 android {
     namespace 'com.carwith383.persist'
     compileSdk 35
+
     defaultConfig {
         applicationId 'com.carwith383.persist'
         minSdk 27
         targetSdk 35
         versionCode 102
-        versionName '1.0-api102'
+        versionName '1.0-api102-fixed'
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
